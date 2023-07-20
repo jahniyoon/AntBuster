@@ -1372,9 +1372,10 @@ GameObject:
   - component: {fileID: 7651310830676755288}
   - component: {fileID: 9008703871389322058}
   - component: {fileID: 3457716265277387079}
+  - component: {fileID: -195868739776700203}
   m_Layer: 0
   m_Name: Warrior
-  m_TagString: Untagged
+  m_TagString: Ant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1421,7 +1422,7 @@ Animator:
   m_GameObject: {fileID: 6368284636659887909}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9e52c160328d68b4799c73e4e5cd0ed7, type: 3}
-  m_Controller: {fileID: 9100000, guid: e08f1ad329907ff45a729ebb6d865d9b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2d06103db078c384d959b0485f5a0913, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1446,6 +1447,22 @@ CapsuleCollider:
   m_Height: 1.9
   m_Direction: 1
   m_Center: {x: 0, y: 0.85, z: 0}
+--- !u!54 &-195868739776700203
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6368284636659887909}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
 --- !u!1 &6375690873890104739
 GameObject:
   m_ObjectHideFlags: 0
