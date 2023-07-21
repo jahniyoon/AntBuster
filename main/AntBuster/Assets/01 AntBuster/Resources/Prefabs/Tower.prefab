@@ -139,7 +139,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6322244678273267611}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 3609009581267378007}
   - component: {fileID: -4024587772251975238}
   - component: {fileID: 9213998681160218637}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,6 +502,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6417842002101248129}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &8103381756423694272
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6417842002101151273}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 7.31
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.83, z: 0}
 --- !u!95 &6269396201998798321
 Animator:
   serializedVersion: 5
@@ -523,6 +537,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5929026660217080654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6417842002101151273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ec225b6ec69234193909e797eadecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6417842002101385731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 573be51befacc0840ae26ab882e0583b,
@@ -556,7 +582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 32e414ff1ed67c74d9978832c80899c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 32e414ff1ed67c74d9978832c80899c0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -572,7 +598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 32e414ff1ed67c74d9978832c80899c0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 32e414ff1ed67c74d9978832c80899c0, type: 3}
       propertyPath: m_LocalRotation.y
