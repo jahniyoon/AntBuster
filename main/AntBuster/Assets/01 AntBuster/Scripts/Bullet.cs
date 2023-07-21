@@ -28,8 +28,10 @@ public class Bullet : MonoBehaviour
 
             if (antController != null)
             {
+                Debug.Log("개미에게 데미지 :"+ damage);
                 antController.antHealth -= damage;
             }
+            Destroy(gameObject);
 
         }
 

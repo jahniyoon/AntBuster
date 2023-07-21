@@ -15,7 +15,7 @@ public class CakeController : MonoBehaviour
         cakeRigid = GetComponent<Rigidbody>();
     }
 
-    private void OnEnabel()
+    private void OnEnable()
     {
         for (int i = 0; i < cakes.Length; i++)
         {
@@ -25,7 +25,6 @@ public class CakeController : MonoBehaviour
     // 개미가 케이크를 가져갈 때마다 케이크 비활성화
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.tag.Equals("Ant"))
         {
             if (leftCake > 0)
@@ -34,13 +33,13 @@ public class CakeController : MonoBehaviour
                 leftCake--;
             }
         }
-        
-
     }
 
-    void Update()
+    public void CakeBack()
     {
-
+        Debug.Log("케이크 반환");
+        cakes[leftCake].SetActive(true);
+        leftCake++;
 
     }
 }

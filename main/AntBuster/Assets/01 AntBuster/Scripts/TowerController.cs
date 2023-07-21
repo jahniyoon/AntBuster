@@ -66,7 +66,9 @@ public class TowerController : MonoBehaviour
                 Bullet bulletComponent = bullet.GetComponent<Bullet>(); // 생성된 총알의 Bullet 컴포넌트 가져오기
                 if (bulletComponent != null)
                 {
-                    bulletComponent.speed = 5f; // bulletSpeed 값을 5로 설정
+                    bulletComponent.speed = bulletSpeed; // 생성한 bullet의 속도와 데미지로 설정
+                    bulletComponent.damage = bulletDamage; 
+
                 }
 
                 //bullet.transform.LookAt(closestAnt);
