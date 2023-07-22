@@ -33,7 +33,7 @@ public class SpawnerController : MonoBehaviour
         {
             antSpawn = 0f;
 
-            Debug.Log("개미를 생성한다.");
+            //Debug.Log("개미를 생성한다.");
                 Vector3 antPosition = spawnerRigid.position; // Ant의 초기 위치를 설정
                 antPosition.x = -4f; // 스포너의 앞에 생성
                 antPosition.z = 4f; // 스포너의 앞에 생성

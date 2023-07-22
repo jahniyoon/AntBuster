@@ -82,16 +82,16 @@ public class AntController : MonoBehaviour
     // 개미와 무언가 부딧쳤다.
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("개미 무언가와 충돌");
+        //Debug.Log("개미 무언가와 충돌");
 
         if (other.tag.Equals("Cake"))
         {
             Debug.Log("개미 케이크를 주웠다.");
-            //if (cake.leftCake > 0)
-            //{
+            if (cake.leftCake > 0)
+            {
                 getCake = true;
                 GetCake();
-            //}
+            }
         }
         if (other.tag.Equals("Spawner"))
         {
@@ -101,7 +101,7 @@ public class AntController : MonoBehaviour
         }
         if (other.tag.Equals("Bullet"))
         {
-            Debug.Log("개미 Hit");
+            //Debug.Log("개미 Hit");
             animator.SetTrigger("Hit");
         }
 
@@ -132,6 +132,7 @@ public class AntController : MonoBehaviour
 
             Debug.Log("개미 케이크 든다.");
             cakeObj.SetActive(true);
+            cake.GetCake();
         }
     }
 }

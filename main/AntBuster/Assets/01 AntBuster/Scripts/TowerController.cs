@@ -101,7 +101,7 @@ public class TowerController : MonoBehaviour
     {
         if (other.tag.Equals("Ant"))
         {
-            Debug.Log("타워가 개미 감지");
+            //Debug.Log("타워가 개미 감지");
             bulletFire = true;
         }
     }
@@ -109,7 +109,7 @@ public class TowerController : MonoBehaviour
     {
         if (other.tag.Equals("Ant"))
         {
-            Debug.Log("타워가 개미 놓침");
+            //Debug.Log("타워가 개미 놓침");
             bulletFire = false;
         }
     }
