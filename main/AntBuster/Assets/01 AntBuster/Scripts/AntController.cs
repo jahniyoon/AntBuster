@@ -21,6 +21,7 @@ public class AntController : MonoBehaviour
     private Animator animator = default;
 
     [Header("Ant Status")]  // 인스펙터 창에 보일 헤더 이름
+    public int antLevel = default;
     public float antHealth = default;
     public float antMaxHealth = default;
     public float antSpeed = default;
@@ -116,6 +117,7 @@ public class AntController : MonoBehaviour
         spawner.antSpawnCount -= 1;
         cakeObj.SetActive(false);
 
+        GameManager.instance.AddScore(antLevel);
         Destroy(gameObject, 1.5f);
 
         // 케이크를 가지고있었으면 케이크 숫자 +1

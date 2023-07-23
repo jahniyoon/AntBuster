@@ -1975,8 +1975,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702aa8fcc3421354695a49ca6292e76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antLevel: 1
   antHealth: 4
-  antMaxHealth: 0
+  antMaxHealth: 4
   antSpeed: 0.5
   cakeObj: {fileID: 9067906713479198489}
 --- !u!95 &9008703871389322058
