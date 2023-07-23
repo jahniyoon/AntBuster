@@ -16,6 +16,7 @@ public class SpawnerController : MonoBehaviour
 
     [Header("Spawn Ant Status")]  // 인스펙터 창에 보일 헤더 이름
     public int Level = 1;
+    public float MaxHealth = 4;
     public float Health = 4;
     public float Speed = 0.5f;
 
@@ -46,6 +47,7 @@ public class SpawnerController : MonoBehaviour
                 if (antComponent != null)
                 {
                     antComponent.antHealth = Health; // 생성한 ant의 속도와 데미지설정
+                    antComponent.antMaxHealth = MaxHealth; // 생성한 ant의 속도와 데미지설정
                     antComponent.antSpeed = Speed;
                 }
 

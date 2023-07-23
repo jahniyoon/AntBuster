@@ -22,6 +22,7 @@ public class AntController : MonoBehaviour
 
     [Header("Ant Status")]  // 인스펙터 창에 보일 헤더 이름
     public float antHealth = default;
+    public float antMaxHealth = default;
     public float antSpeed = default;
     public GameObject cakeObj; // 개별 개미의 케이크 오브젝트
 
@@ -30,10 +31,10 @@ public class AntController : MonoBehaviour
 
     void Start()
     {
-       
+        antMaxHealth = antHealth;
 
-        // 개미 수 체크를 위한 스포너 컨트롤러 가져오기
-        spawner = FindObjectOfType<SpawnerController>();
+         // 개미 수 체크를 위한 스포너 컨트롤러 가져오기
+         spawner = FindObjectOfType<SpawnerController>();
         cake = FindObjectOfType<CakeController>();
 
         //CakeController의 transform값 가져오기
