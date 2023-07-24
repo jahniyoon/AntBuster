@@ -22,18 +22,7 @@ public class CakeController : MonoBehaviour
             cakes[i].SetActive(true);
         }
     }
-    //// 개미가 케이크를 가져갈 때마다 케이크 비활성화
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.tag.Equals("Ant"))
-    //    {
-    //        if (leftCake > 0)
-    //        {
-    //            cakes[leftCake - 1].SetActive(false);
-    //            leftCake--;
-    //        }
-    //    }
-    //}
+    
     public void GetCake()
     {
         if (leftCake >= 0)
@@ -48,6 +37,5 @@ public class CakeController : MonoBehaviour
         Debug.Log("케이크 반환");
         cakes[leftCake].SetActive(true);
         leftCake++;
-
     }
 }

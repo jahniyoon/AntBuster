@@ -86,7 +86,7 @@ public class AntController : MonoBehaviour
     {
         //Debug.Log("개미 무언가와 충돌");
 
-        if (other.tag.Equals("Cake"))
+        if (other.tag.Equals("Cake") && !getCake)
         {
             Debug.Log("개미 케이크를 주웠다.");
             if (cake.leftCake > 0)
@@ -99,7 +99,13 @@ public class AntController : MonoBehaviour
         {
             Debug.Log("케이크 가져오기 임무 완수");
             spawner.antSpawnCount -= 1;
+            GameManager.instance.LostCake();
             Destroy(gameObject);
+
+            if (GameInfo.lostCake <= 0)
+            {
+                GameManager.instance.OnGameOver();
+            }
         }
         if (other.tag.Equals("Bullet"))
         {
@@ -118,6 +124,13 @@ public class AntController : MonoBehaviour
         cakeObj.SetActive(false);
 
         GameManager.instance.AddScore(antLevel);
+        GameManager.instance.AddMoney(antLevel);
+
+        if (GameInfo.score >= GameInfo.exp)
+        {
+            GameManager.instance.LevelUp();
+        }
+
         Destroy(gameObject, 1.5f);
 
         // 케이크를 가지고있었으면 케이크 숫자 +1

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditorInternal.ReorderableList;
 
 public class SpawnerController : MonoBehaviour
 {
@@ -14,11 +15,7 @@ public class SpawnerController : MonoBehaviour
     public float antSpawn = default;
     public float spawnRate = 0.5f;
 
-    [Header("Spawn Ant Status")]  // 인스펙터 창에 보일 헤더 이름
-    public int Level = 1;
-    public float MaxHealth = 4;
-    public float Health = 4;
-    public float Speed = 0.5f;
+
 
     void Start()
     {
@@ -46,9 +43,10 @@ public class SpawnerController : MonoBehaviour
                 AntController antComponent = ant.GetComponent<AntController>(); // 생성된 총알의 Bullet 컴포넌트 가져오기
                 if (antComponent != null)
                 {
-                    antComponent.antHealth = Health; // 생성한 ant의 속도와 데미지설정
-                    antComponent.antMaxHealth = MaxHealth; // 생성한 ant의 속도와 데미지설정
-                    antComponent.antSpeed = Speed;
+                    antComponent.antLevel = GameInfo.level;
+                    antComponent.antHealth = GameInfo.antHealth; // 생성한 ant의 속도와 데미지설정
+                    antComponent.antMaxHealth = GameInfo.antMaxHealth; // 생성한 ant의 속도와 데미지설정
+                    antComponent.antSpeed = GameInfo.antSpeed;
                 }
 
             antSpawnCount++;
