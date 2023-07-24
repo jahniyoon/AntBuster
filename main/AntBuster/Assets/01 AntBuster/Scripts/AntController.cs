@@ -88,7 +88,7 @@ public class AntController : MonoBehaviour
 
         if (other.tag.Equals("Cake") && !getCake)
         {
-            Debug.Log("개미 케이크를 주웠다.");
+            //Debug.Log("개미 케이크를 주웠다.");
             if (cake.leftCake > 0)
             {
                 getCake = true;
@@ -97,7 +97,7 @@ public class AntController : MonoBehaviour
         }
         if (other.tag.Equals("Spawner"))
         {
-            Debug.Log("케이크 가져오기 임무 완수");
+            //Debug.Log("케이크 가져오기 임무 완수");
             spawner.antSpawnCount -= 1;
             GameManager.instance.LostCake();
             Destroy(gameObject);
@@ -118,7 +118,7 @@ public class AntController : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        Debug.Log("개미 사망");
+        //Debug.Log("개미 사망");
         animator.SetTrigger("Die");
         spawner.antSpawnCount -= 1;
         cakeObj.SetActive(false);

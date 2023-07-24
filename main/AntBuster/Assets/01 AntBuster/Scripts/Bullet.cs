@@ -22,13 +22,13 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == ("Ant"))
         {
-            Debug.Log("총알이 개미와 부딪쳤다.");
+            //Debug.Log("총알이 개미와 부딪쳤다.");
 
             AntController antController = other.GetComponent<AntController>();
 
             if (antController != null)
             {
-                Debug.Log("개미에게 데미지 :"+ damage);
+                //Debug.Log("개미에게 데미지 :"+ damage);
                 antController.antHealth -= damage;
             }
             Destroy(gameObject);

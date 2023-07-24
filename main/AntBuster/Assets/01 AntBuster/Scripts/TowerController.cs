@@ -97,12 +97,17 @@ public class TowerController : MonoBehaviour
     }   // } FindClosestAnt
 
     // 타워가 무언가 감지했다.
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag.Equals("Ant"))
         {
             //Debug.Log("타워가 개미 감지");
             bulletFire = true;
+        }
+        else
+        {
+            bulletFire = false;
+
         }
     }
     private void OnTriggerExit(Collider other)
