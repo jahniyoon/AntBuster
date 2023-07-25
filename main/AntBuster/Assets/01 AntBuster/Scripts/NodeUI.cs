@@ -44,13 +44,13 @@ public class NodeUI : MonoBehaviour
 
     public void Upgrade()
     {
-        target.UpgradeTurret();
+        target.UpgradeTower();
         BuildManager.instance.DeselectNode();
     }
 
     public void Sell()
     {
-        target.SellTurret();
+        target.SellTower();
         BuildManager.instance.DeselectNode();
     }
 }

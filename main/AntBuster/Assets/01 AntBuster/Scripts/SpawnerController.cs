@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEditorInternal.ReorderableList;
 
@@ -15,23 +16,52 @@ public class SpawnerController : MonoBehaviour
     public float antSpawn = default;
     public float spawnRate = 0.5f;
 
-
+    public float countDown = 5.0f;
+    public TMP_Text timeText;
+    public GameObject timer;
 
     void Start()
     {
         antSpawn = 0;
         spawnerRigid = GetComponent<Rigidbody>();
+
+        //StartCoroutine(StartSpawning());
+
+        timeText.text = countDown.ToString();
+
     }
+    //// 10초 뒤에 스폰 시작을 위한 코루틴
+    //private IEnumerator StartSpawning()
+    //{
+    //    yield return new WaitForSeconds(10f);
+    //    shouldSpawn = true;
+
+    //    antSpawn = 0;
+
+    //}
 
     private void Update()
     {
-        antSpawn += Time.deltaTime;
+        if (countDown > 0)
+        { 
+            countDown -= Time.deltaTime;
+            timeText.text = countDown.ToString();
+            timeText.text = Mathf.Round(countDown).ToString();
+        }
 
-        if (antSpawnCount < antSpawnValue && antSpawn > spawnRate)
+
+
+        if (countDown <= 0)
         {
-            antSpawn = 0f;
+            timer.SetActive(false);
 
-            //Debug.Log("개미를 생성한다.");
+            antSpawn += Time.deltaTime;
+
+            if (antSpawnCount < antSpawnValue && antSpawn > spawnRate)
+            {
+                antSpawn = 0f;
+
+                //Debug.Log("개미를 생성한다.");
                 Vector3 antPosition = spawnerRigid.position; // Ant의 초기 위치를 설정
                 antPosition.x = -4f; // 스포너의 앞에 생성
                 antPosition.z = 4f; // 스포너의 앞에 생성
@@ -49,7 +79,10 @@ public class SpawnerController : MonoBehaviour
                     antComponent.antSpeed = GameInfo.antSpeed;
                 }
 
-            antSpawnCount++;
+                antSpawnCount++;
+            }
         }
     }
+
+
 }

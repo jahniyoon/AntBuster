@@ -10,6 +10,8 @@ public class Node : MonoBehaviour
 
     public GameObject buildOn;
     public GameObject buildOff;
+    public GameObject buildMagicOn;
+    public GameObject buildMagicOff;
     public Vector3 positionOffset;
 
 
@@ -17,6 +19,7 @@ public class Node : MonoBehaviour
     public GameObject tower;
     public TowerBlueprint towerBlueprint;
     public bool isUpgraded = false;
+
 
 
     private void Start()
@@ -61,29 +64,40 @@ public class Node : MonoBehaviour
         //tower = (GameObject)Instantiate(towerToBuild, transform.position, transform.rotation);
 
     }
-
+    // 타워 건설
     void BuildTower(TowerBlueprint blueprint)
     {
-        if (GameInfo.money < GameInfo.towerCost)
+        if (BuildManager.instance.isTower)
         {
-            buildManager.DeselectTowerToBuild();
-            return;
+            if (GameInfo.money < GameInfo.towerCost)
+            {
+                buildManager.DeselectTowerToBuild();
+                return;
+            }
+
+            GameManager.instance.BuyTower(GameInfo.towerCost);
         }
+        if (!BuildManager.instance.isTower)
+        {
+            if (GameInfo.money < GameInfo.magicTowerCost)
+            {
+                buildManager.DeselectTowerToBuild();
+                return;
+            }
 
-        GameManager.instance.BuyTower(GameInfo.towerCost);
-
+            GameManager.instance.BuyMagicTower(GameInfo.magicTowerCost);
+        }
         // (GameObject) 캐스트해서 타워 생성
         GameObject _tower = (GameObject)Instantiate(blueprint.prefab,
-            GetBuildPosition(), Quaternion.identity);
-        tower = _tower;
+                GetBuildPosition(), Quaternion.identity);
+            tower = _tower;
 
-        towerBlueprint = blueprint;
+            towerBlueprint = blueprint;
 
-        Debug.Log("구매 완료");
-
+            Debug.Log("구매 완료");
     }
 
-    public void UpgradeTurret()
+    public void UpgradeTower()
     {
         if (GameInfo.money < GameInfo.towerUpgradeCost)
         {
@@ -104,7 +118,7 @@ public class Node : MonoBehaviour
 
         Debug.Log("타워 업그레이드");
     }
-    public void SellTurret()
+    public void SellTower()
     {
         GameManager.instance.AddMoney(GameInfo.towerCost / 2);
 
@@ -121,13 +135,25 @@ public class Node : MonoBehaviour
         if (!buildManager.CanBuild)
             return;
 
-        if (GameInfo.money > GameInfo.towerCost)
+        if (BuildManager.instance.isTower && tower == null)
         {
-            buildOn.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
+            if (GameInfo.money >= GameInfo.towerCost)
+            {
+                buildOn.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
+            }
+            else
+                buildOff.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
         }
-        else
-        buildOff.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
 
+        if (!BuildManager.instance.isTower && tower == null)
+        {
+            if (GameInfo.money >= GameInfo.magicTowerCost)
+            {
+                buildMagicOn.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
+            }
+            else
+                buildMagicOff.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
+        }
     }
 
 
@@ -135,5 +161,7 @@ public class Node : MonoBehaviour
     {
         buildOn.SetActive(false);  // 마우스가 노드 에서 나가면 복귀 
         buildOff.SetActive(false);  // 마우스가 노드 에서 나가면 복귀 
+        buildMagicOn.SetActive(false);
+        buildMagicOff.SetActive(false);
     }
 }

@@ -12,7 +12,9 @@ public class GameInfo
     public static int score = 0;
     public static int lostCake = 8;
     public static int towerCost = 30;
-    public static int towerUpgradeCost = 300;
+    public static int towerUpgradeCost = 50;
+
+    public static int magicTowerCost = 300;
 
     public static float antMaxHealth = 4;
     public static float antHealth = 4;

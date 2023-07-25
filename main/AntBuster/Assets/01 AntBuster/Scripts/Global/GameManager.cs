@@ -13,10 +13,13 @@ public class GameManager : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text scoreText;
 
+    public TMP_Text costText;
+    public TMP_Text magicCostText;
+
+
     [Header("Debug instance")]
     public TMP_Text lostCakeText;
     public TMP_Text levelExp;
-    public TMP_Text costText;
 
     public GameObject gameoverUI;
 
@@ -24,9 +27,17 @@ public class GameManager : MonoBehaviour
     public void Initialization()
     {
         isGameOver = false;
-        GameInfo.score = 0;
-        GameInfo.money = 300;
         GameInfo.level = 1;
+        GameInfo.score = 0;
+        GameInfo.exp = 1;
+        GameInfo.money = 300;
+        GameInfo.lostCake = 8;
+        GameInfo.towerCost = 30;
+        GameInfo.magicTowerCost = 300;
+
+        GameInfo.antMaxHealth = 4;
+        GameInfo.antHealth = 4;
+        GameInfo.antSpeed = 0.5f;
     }   // } Initialization
 
     private void Awake()
@@ -51,7 +62,8 @@ public class GameManager : MonoBehaviour
 
         lostCakeText.text = string.Format("LOST CAKE : {0}", GameInfo.lostCake);
         levelExp.text = string.Format("LEVEL : {0} ( {1} / {2} )", GameInfo.level, GameInfo.score, GameInfo.exp);
-        costText.text = string.Format("TOWER COST : {0}", GameInfo.towerCost);
+        costText.text = string.Format("$ {0}", GameInfo.towerCost);
+        magicCostText.text = string.Format("$ {0}", GameInfo.magicTowerCost);
 
     }    // } Start()
 
@@ -104,7 +116,20 @@ public class GameManager : MonoBehaviour
             GameInfo.towerCost = GameInfo.towerCost + (GameInfo.towerCost / 2);
             moneyText.text = string.Format("MONEY : {0}", GameInfo.money);
 
-            costText.text = string.Format("TOWER COST : {0}", GameInfo.towerCost);
+            costText.text = string.Format("$ {0}", GameInfo.towerCost);
+        }
+    }
+   
+
+    public void BuyMagicTower(int cost)
+    {
+        if (!isGameOver)
+        {
+            GameInfo.money -= cost;
+            GameInfo.magicTowerCost = GameInfo.magicTowerCost + (GameInfo.magicTowerCost / 2);
+            moneyText.text = string.Format("MONEY : {0}", GameInfo.money);
+
+            magicCostText.text = string.Format("$ {0}", GameInfo.magicTowerCost);
         }
     }
     public void UpgradeTower()
@@ -123,18 +148,20 @@ public class GameManager : MonoBehaviour
     // 레벨 밸런스
     public void LevelUp()
     {
-        GameInfo.level ++;
-        GameInfo.exp *= 2;
+        GameInfo.level ++;  // 레벨업
+        GameInfo.exp = GameInfo.level * 2;  // 필요 경험치
         levelText.text = string.Format("LEVEL : {0}", GameInfo.level);
 
-        GameInfo.antMaxHealth = 4 + Mathf.Floor(GameInfo.level * 0.4f);
+        GameInfo.antMaxHealth = 4 + Mathf.Floor(GameInfo.level * 0.5f);
         
         GameInfo.antHealth = GameInfo.antMaxHealth;
 
-        if (GameInfo.level % 10 == 0)
+        // 개미 속도 업
+        if (GameInfo.level % 3 == 0)
         {
             GameInfo.antSpeed += 0.1f;
         }
+        // 필요 경험치
         levelExp.text = string.Format("LEVEL : {0} ( {1} / {2} )", GameInfo.level, GameInfo.score, GameInfo.exp);
 
     }

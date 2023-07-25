@@ -27,8 +27,19 @@ public class AntController : MonoBehaviour
     public float antSpeed = default;
     public GameObject cakeObj; // 개별 개미의 케이크 오브젝트
 
+    // 개미 움직임
+    public enum AntState
+    {
+        MoveToCake,
+        MoveToSpawner,
+        RandomMove,
+    }
+    private AntState currentState = AntState.MoveToCake;
+    private float randomMoveTime = 2f;
+    private float randomMoveDuration = 5f;
+    private float randomMoveDistance = 5f;
 
-  
+
 
     void Start()
     {
@@ -49,36 +60,128 @@ public class AntController : MonoBehaviour
     {
         if (0 < antHealth)
         {
-            if (!getCake)
+            switch (currentState)
             {
-                //Debug.Log("케이크로 가자");
-                targetPos = cakePos;
-            }
-            else
-            {
-                //Debug.Log("스포너로 가자");
-                targetPos = spawnerPos;
-            }
+                case AntState.MoveToCake:
+                    DefaultMove();
+                    break;
 
-            // 개미가 타겟 쫓아가는 스크립트
-            if (targetPos != null)
-            {
-                // 케이크로 가는 로직
-                Vector3 targetPosition = new Vector3(targetPos.position.x, transform.position.y, targetPos.position.z);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, antSpeed * Time.deltaTime);
+               
 
-                // 개미의 이동 방향 계산
-                moveDirection = targetPos.position - transform.position;
-                moveDirection.y = 0f; // 개미가 수직 방향으로 회전하지 않도록 y값을 0으로 설정
-                moveDirection.Normalize(); // 이동 방향 벡터를 정규화하여 길이를 1로 만듦
-
-                // 개미가 이동하는 방향을 바라보도록 설정
-                if (moveDirection != Vector3.zero)
-                    transform.rotation = Quaternion.LookRotation(moveDirection);
+                case AntState.RandomMove:
+                    RandomMove();
+                    break;
             }
         }
 
-        if (antHealth <= 0 && !isDead) { Die(); } // 개미 사망
+        if (antHealth <= 0 && !isDead)
+        { Die(); }
+
+
+        // 개미가 항상 이동 방향을 보도록 회전시킵니다.
+        if (moveDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(moveDirection);
+        }
+        //if (0 < antHealth)
+        //{
+        //    if (!getCake)
+        //    {
+        //        //Debug.Log("케이크로 가자");
+        //        targetPos = cakePos;
+        //    }
+        //    else
+        //    {
+        //        //Debug.Log("스포너로 가자");
+        //        targetPos = spawnerPos;
+        //    }
+
+        //    // 개미가 타겟 쫓아가는 스크립트
+        //    if (targetPos != null)
+        //    {
+        //        // 케이크로 가는 로직
+        //        Vector3 targetPosition = new Vector3(targetPos.position.x, transform.position.y, targetPos.position.z);
+        //        transform.position = Vector3.MoveTowards(transform.position, targetPosition, antSpeed * Time.deltaTime);
+
+        //        // 개미의 이동 방향 계산
+        //        moveDirection = targetPos.position - transform.position;
+        //        moveDirection.y = 0f; // 개미가 수직 방향으로 회전하지 않도록 y값을 0으로 설정
+        //        moveDirection.Normalize(); // 이동 방향 벡터를 정규화하여 길이를 1로 만듦
+
+        //        // 개미가 이동하는 방향을 바라보도록 설정
+        //        if (moveDirection != Vector3.zero)
+        //            transform.rotation = Quaternion.LookRotation(moveDirection);
+        //    }
+        //}
+
+        //if (antHealth <= 0 && !isDead) { Die(); } // 개미 사망
+    }
+    private void DefaultMove()
+    {
+        if (!getCake)
+        {
+            //Debug.Log("케이크로 가자");
+            targetPos = cakePos;
+        }
+        else
+        {
+            //Debug.Log("스포너로 가자");
+            targetPos = spawnerPos;
+        }
+
+        // 개미가 타겟 쫓아가는 스크립트
+        if (targetPos != null)
+        {
+            // 케이크로 가는 로직
+            Vector3 targetPosition = new Vector3(targetPos.position.x, transform.position.y, targetPos.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, antSpeed * Time.deltaTime);
+
+            // 개미의 이동 방향 계산
+            moveDirection = targetPos.position - transform.position;
+            moveDirection.y = 0f; // 개미가 수직 방향으로 회전하지 않도록 y값을 0으로 설정
+            moveDirection.Normalize(); // 이동 방향 벡터를 정규화하여 길이를 1로 만듦
+
+            // 개미가 이동하는 방향을 바라보도록 설정
+            if (moveDirection != Vector3.zero)
+                transform.rotation = Quaternion.LookRotation(moveDirection);
+        }
+        if (Random.value < 0.9f)
+        {
+            currentState = AntState.RandomMove;
+        }
+    }
+
+    private void RandomMove()
+    {
+        randomMoveTime -= Time.deltaTime;
+
+        if (randomMoveTime <= 0f)
+        {
+            // 랜덤 움직임 상태에서 일정 시간이 지났을 때, 다시 목표로 이동하는 상태로 전환
+            randomMoveTime = randomMoveDuration;
+            currentState = AntState.MoveToCake;
+        }
+        else
+        {
+            // 랜덤 움직임 로직 추가 (일정 거리를 이동하거나 일정 시간이 지나면 방향을 변경하도록 구현)
+            float moveDistance = antSpeed * Time.deltaTime;
+            if (randomMoveDistance > 0f && moveDistance >= randomMoveDistance)
+            {
+                // 일정 거리를 이동하면 방향을 변경
+                float randomAngle = Random.Range(-135f, 135f);
+                moveDirection = Quaternion.Euler(0f, randomAngle, 0f) * moveDirection;
+
+                randomMoveDistance = Random.Range(1f, 5f); // 다음 랜덤 이동 거리 설정
+
+            }
+            else
+            {
+                // 일정 시간이 지날 때까지 이동
+                transform.position += moveDirection * moveDistance;
+                randomMoveDistance -= moveDistance;
+            }
+
+        }
     }
 
     // 개미와 무언가 부딧쳤다.
@@ -95,7 +198,7 @@ public class AntController : MonoBehaviour
                 GetCake();
             }
         }
-        if (other.tag.Equals("Spawner"))
+        if (other.tag.Equals("Spawner") && getCake)
         {
             //Debug.Log("케이크 가져오기 임무 완수");
             spawner.antSpawnCount -= 1;

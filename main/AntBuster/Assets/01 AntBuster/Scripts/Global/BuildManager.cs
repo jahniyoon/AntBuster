@@ -21,6 +21,7 @@ public class BuildManager : MonoBehaviour
     private Node selectedNode;
     
     public NodeUI nodeUI;
+    public bool isTower = false;    // 지으려는 타워 확인
 
     public bool CanBuild { get { return towerToBuild != null; } } // 건설 가능한지 체크
 
