@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         GameInfo.level = 1;
         GameInfo.score = 0;
         GameInfo.exp = 1;
-        GameInfo.money = 1000;
+        GameInfo.money = 300;
         GameInfo.lostCake = 8;
         GameInfo.towerCost = 30;
         GameInfo.magicTowerCost = 300;
@@ -78,6 +78,14 @@ public class GameManager : MonoBehaviour
                 Initialization();   // √ ±‚»≠
                 GlobalFunc.LoadScene("PlayScene");
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameInfo.money += 1000;
+            moneyText.text = string.Format("GOLD : {0}", GameInfo.money);
+            Audio audio = FindObjectOfType<Audio>();
+            audio.PaySound();
         }
     }
     public void LostCake()

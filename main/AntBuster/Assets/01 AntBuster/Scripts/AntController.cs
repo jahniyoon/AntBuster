@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEngine.GraphicsBuffer;
+using TMPro;
+//using static UnityEngine.GraphicsBuffer;
 
 public class AntController : MonoBehaviour
 {
@@ -14,6 +15,17 @@ public class AntController : MonoBehaviour
     private Transform cakePos = default; // 케이크의 포지션
     private Transform spawnerPos = default; // 스포너의 포지션
 
+    // 데미지 UI 관련
+    public TMP_Text damageText;
+    public GameObject damageUI;
+
+    public float damageTime = 1f;
+    private float damageDisplayDuration = 1f;
+
+    // 점수 UI 관련
+    public TMP_Text scoreText;
+    public GameObject scoreUI;
+   
     private bool getCake = false;
     private bool isDead = false;
 
@@ -75,14 +87,31 @@ public class AntController : MonoBehaviour
         }
 
         if (antHealth <= 0 && !isDead)
-        { Die(); }
-
+        {
+            scoreUI.SetActive(true);
+            scoreText.text = string.Format("+ {0}", antLevel);
+            Debug.Log("점수가 잘 보이나?" + antLevel);
+            Die();
+        }
 
         // 개미가 항상 이동 방향을 보도록 회전시킵니다.
         if (moveDirection != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(moveDirection);
         }
+
+        // damageTime이 일정 시간 이상 지났을 때, damageUI를 비활성화
+        if (damageTime < damageDisplayDuration)
+        {
+            damageTime += Time.deltaTime;
+        }
+        else
+        {
+            damageUI.SetActive(false);
+        }
+
+      
+
         //if (0 < antHealth)
         //{
         //    if (!getCake)
@@ -227,13 +256,20 @@ public class AntController : MonoBehaviour
 
     }
 
+    public void Hit(float damage)
+    {
+        damageTime = 0f; // Hit 메서드가 호출될 때마다 damageTime 초기화
+        damageUI.SetActive(true);
+        damageText.text = string.Format("{0}", damage);
+    }
+   
+
     private void Die()
     {
         isDead = true;
         //Debug.Log("개미 사망");
         animator.SetTrigger("Die");
         spawner.antSpawnCount -= 1;
-        cakeObj.SetActive(false);
 
         GameManager.instance.AddScore(antLevel);
         GameManager.instance.AddMoney(antLevel);
@@ -246,6 +282,8 @@ public class AntController : MonoBehaviour
         audio.DieSound();
 
         Destroy(gameObject, 1.5f);
+        cakeObj.SetActive(false);
+
 
         // 케이크를 가지고있었으면 케이크 숫자 +1
         if (getCake)

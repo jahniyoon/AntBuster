@@ -40,7 +40,7 @@ public class HpBarController : MonoBehaviour
 
             if (hpSlider.value == 0)
             {
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
 
             }
         }

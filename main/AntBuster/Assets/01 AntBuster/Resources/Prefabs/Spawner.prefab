@@ -764,6 +764,9 @@ MonoBehaviour:
   antSpawnCount: 6
   antSpawn: 0
   spawnRate: 2
+  countDown: 5
+  timeText: {fileID: 0}
+  timer: {fileID: 0}
 --- !u!1 &5890790448588015736
 GameObject:
   m_ObjectHideFlags: 0

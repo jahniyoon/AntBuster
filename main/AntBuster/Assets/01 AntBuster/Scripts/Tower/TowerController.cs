@@ -92,9 +92,33 @@ public class TowerController : MonoBehaviour
                 {
                     bulletComponent.speed = bulletSpeed; // 생성한 bullet의 속도와 데미지로 설정
                     bulletComponent.damage = bulletDamage; 
-
                 }
 
+                if (isUpgraded)
+                {
+                    // 두 번째 방향으로 화살 쏘기
+                    Vector3 bulletRotation2 = headTransform.rotation.eulerAngles;
+                    Vector3 bulletRotation3 = headTransform.rotation.eulerAngles;
+                    bulletRotation2.y += 15f; // 15도 회전
+                    bulletRotation3.y -= 15f; // 15도 회전
+                    GameObject bullet2 = Instantiate(bulletPrefab, bulletPosition, Quaternion.Euler(bulletRotation2));
+                    GameObject bullet3 = Instantiate(bulletPrefab, bulletPosition, Quaternion.Euler(bulletRotation3));
+                    bullet2.tag = bulletTag; // bullet에게 태그 지정
+                    bullet3.tag = bulletTag; // bullet에게 태그 지정
+
+                    Bullet bulletComponent2 = bullet2.GetComponent<Bullet>(); // 생성된 총알의 Bullet 컴포넌트 가져오기
+                    Bullet bulletComponent3 = bullet3.GetComponent<Bullet>(); // 생성된 총알의 Bullet 컴포넌트 가져오기
+                    if (bulletComponent2 != null)
+                    {
+                        bulletComponent2.speed = bulletSpeed; // 생성한 bullet의 속도와 데미지로 설정
+                        bulletComponent2.damage = bulletDamage;
+                    }
+                    if (bulletComponent3 != null)
+                    {
+                        bulletComponent3.speed = bulletSpeed; // 생성한 bullet의 속도와 데미지로 설정
+                        bulletComponent3.damage = bulletDamage;
+                    }
+                }
                 //bullet.transform.LookAt(closestAnt);
 
             }
