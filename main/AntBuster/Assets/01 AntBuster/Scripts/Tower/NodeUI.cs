@@ -32,24 +32,30 @@ public class NodeUI : MonoBehaviour
             upgradeButton.interactable = false;
         }
 
-        sellAmount.text = "$" + (GameInfo.towerCost /2);
+        sellAmount.text = "$" + (GameInfo.towerCost / 2);
 
         ui.SetActive(true);
     }
 
     public void Hide()
     {
+        Audio audio = FindObjectOfType<Audio>();
+        audio.ClickSound();
         ui.SetActive(false);
     }
 
     public void Upgrade()
     {
+        Audio audio = FindObjectOfType<Audio>();
+        audio.ClickSound();
         target.UpgradeTower();
         BuildManager.instance.DeselectNode();
     }
 
     public void Sell()
     {
+        Audio audio = FindObjectOfType<Audio>();
+        audio.ClickSound();
         target.SellTower();
         BuildManager.instance.DeselectNode();
     }

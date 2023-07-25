@@ -10,18 +10,31 @@ public class TowerController : MonoBehaviour
 
 
     [Header("Tower Status")]  // 인스펙터 창에 보일 헤더 이름
-    public int towerLevel = 1;
-    public float range = 100;
-    public float bulletRate = 3;
-    public float bulletSpeed = 4;
-    public float bulletDamage = 2;
+    public float bulletRate = default;    //3,4,2
+    public float bulletSpeed = default;
+    public float bulletDamage = default;
 
     private float bulletSpawn = default;
     private bool bulletFire = false;
 
+    public bool isUpgraded = false;
+    public bool isMagictower = false;
+
     void Start()
     {
         bulletSpawn = 0f;
+
+        if (!isMagictower)
+        {
+            Audio audio = FindObjectOfType<Audio>();
+            audio.BuildSound();
+        }
+
+        else if (isMagictower)
+        {
+            Audio audio = FindObjectOfType<Audio>();
+            audio.MagicTowerSound();
+        }
 
         // ArcherTowerBody 자식 오브젝트의 Head 자식 오브젝트를 찾아서 해당 transform 값을 가져온다.
         Transform archerTowerBody = transform.Find("ArcherTower");
@@ -62,6 +75,17 @@ public class TowerController : MonoBehaviour
                 GameObject bullet =
                     Instantiate(bulletPrefab, bulletPosition, headTransform.rotation);
                 bullet.tag = bulletTag; // bullet에게 태그 지정
+
+                if (!isMagictower)
+                {
+                    Audio audio = FindObjectOfType<Audio>();
+                    audio.BowSound();
+                }
+                else if(isMagictower)
+                {
+                    Audio audio = FindObjectOfType<Audio>();
+                    audio.MagicSound();
+                }
 
                 Bullet bulletComponent = bullet.GetComponent<Bullet>(); // 생성된 총알의 Bullet 컴포넌트 가져오기
                 if (bulletComponent != null)

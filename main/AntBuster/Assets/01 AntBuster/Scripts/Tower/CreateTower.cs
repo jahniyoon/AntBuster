@@ -19,6 +19,9 @@ public class CreateTower : MonoBehaviour
     {
         BuildManager.instance.isTower = true;
         buildManager.SelectTowerToBuild(Tower); // 타워 프리팹 전달
+
+        Audio audio = FindObjectOfType<Audio>();
+        audio.ClickSound();
     }
 
 
@@ -26,6 +29,9 @@ public class CreateTower : MonoBehaviour
     {
         BuildManager.instance.isTower = false;
         buildManager.SelectTowerToBuild(magicTower); // 타워 프리팹 전달
+
+        Audio audio = FindObjectOfType<Audio>();
+        audio.ClickSound();
     }
 
 }

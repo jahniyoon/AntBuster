@@ -5,11 +5,19 @@ using UnityEngine;
 public class Audio : MonoBehaviour
 {
     public AudioClip bgmClip;
-    public AudioClip jumpClip;
-    public AudioClip coinClip;
+    public AudioClip bowClip;
+    public AudioClip magicClip;
+    public AudioClip hitClip;
     public AudioClip dieClip;
-    public AudioClip clearClip;
-    public AudioClip clapClip;
+    public AudioClip laughClip;
+    public AudioClip payClip;
+    public AudioClip clickClip;
+    public AudioClip sellClip;
+    public AudioClip buildClip;
+    public AudioClip magicTowerClip;
+    public AudioClip upgradeClip;
+    public AudioClip beepClip;
+    public AudioClip retryClip;
 
     private AudioSource audioSource;
 
@@ -26,28 +34,60 @@ public class Audio : MonoBehaviour
     }
 
 
-    public void JumpSound()
+    public void BowSound()
     {
-        audioSource.PlayOneShot(jumpClip);
+        audioSource.PlayOneShot(bowClip);
     }
 
-    public void CoinSound()
+    public void MagicSound()
     {
-        audioSource.PlayOneShot(coinClip);
+        audioSource.PlayOneShot(magicClip);
     } 
-    public void ClapSound()
+    public void HitSound()
     {
-        audioSource.PlayOneShot(clapClip);
+        audioSource.PlayOneShot(hitClip);
     }
     public void DieSound()
     {
-        audioSource.clip = dieClip;
-        audioSource.Play();
+        audioSource.PlayOneShot(dieClip);
     }
-    public void ClearSound()
+    public void LaughSound()
     {
-        audioSource.clip = clearClip;
+        audioSource.PlayOneShot(laughClip);
+    }
+    public void PaySound()
+    {
+        audioSource.PlayOneShot(payClip);
+    }
+    public void ClickSound()
+    {
+        audioSource.PlayOneShot(clickClip);
+    }
+    public void SellSound()
+    {
+        audioSource.PlayOneShot(clickClip);
+    }
+    public void BuildSound()
+    {
+        audioSource.PlayOneShot(buildClip);
+    }
+    public void UpgradeSound()
+    {
+        audioSource.PlayOneShot(upgradeClip);
+    }
+    public void MagicTowerSound()
+    {
+        audioSource.PlayOneShot(magicTowerClip);
+    }
+    public void BeepSound()
+    {
+        audioSource.PlayOneShot(beepClip);
+    }
+    public void RetrySound()
+    {
+        audioSource.clip = retryClip;
         audioSource.Play();
     }
+    
 
 }

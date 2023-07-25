@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4970294762884974097}
   - component: {fileID: 4970294762884974096}
   m_Layer: 2
-  m_Name: Magic Tower
+  m_Name: Magic Tower UP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6.5
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4970294762884974096
 MonoBehaviour:
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e041f50f9755e489ba69c8848d4b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8793146604033898742, guid: f38e6e96d1aaaa241851da179016ce78,
+  bulletPrefab: {fileID: 8793146604033898742, guid: a5442787106fef343920e91456d402ce,
     type: 3}
   bulletTag: Bullet
   towerLevel: 1
@@ -1351,10 +1351,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -1394,6 +1390,22 @@ PrefabInstance:
     - target: {fileID: 100010, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.76
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
       propertyPath: m_RootOrder
@@ -1439,14 +1451,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2171af4269a870c43b84c626175753a3, type: 2}
     - target: {fileID: 2300008, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2171af4269a870c43b84c626175753a3, type: 2}
+      objectReference: {fileID: 2100000, guid: 84771d44e17c84418a3a04c2f9547a92, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fc65d7b0a17d12428eb1eb4021dd145, type: 3}
 --- !u!1 &7941084521590642155 stripped

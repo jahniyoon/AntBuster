@@ -34,6 +34,10 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()  // 노드 클릭 시
     {
+
+        Audio audio = FindObjectOfType<Audio>();
+        audio.ClickSound();
+
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;     // UI 오브젝트가 있을 때 다른 동작 없이 해당 이벤트 전달
@@ -67,7 +71,10 @@ public class Node : MonoBehaviour
     // 타워 건설
     void BuildTower(TowerBlueprint blueprint)
     {
-        if (BuildManager.instance.isTower)
+
+        GameObject _tower;
+
+        if (BuildManager.instance.isTower)  // 일반 타워일 떄
         {
             if (GameInfo.money < GameInfo.towerCost)
             {
@@ -76,8 +83,24 @@ public class Node : MonoBehaviour
             }
 
             GameManager.instance.BuyTower(GameInfo.towerCost);
+
+            // (GameObject) 캐스트해서 타워 생성
+            _tower = (GameObject)Instantiate(blueprint.prefab,
+                    GetBuildPosition(), Quaternion.identity);
+            tower = _tower;
+
+            TowerController towerComponent = tower.GetComponent<TowerController>(); // 생성된 타워 스탯 설정
+            if (towerComponent != null)
+            {
+                towerComponent.bulletRate = 3f;
+                towerComponent.bulletSpeed = 4;
+                towerComponent.bulletDamage = 2;
+            }
+          
         }
-        if (!BuildManager.instance.isTower)
+
+
+        else if (!BuildManager.instance.isTower) // 마법 타워일 떄
         {
             if (GameInfo.money < GameInfo.magicTowerCost)
             {
@@ -86,15 +109,32 @@ public class Node : MonoBehaviour
             }
 
             GameManager.instance.BuyMagicTower(GameInfo.magicTowerCost);
-        }
-        // (GameObject) 캐스트해서 타워 생성
-        GameObject _tower = (GameObject)Instantiate(blueprint.prefab,
-                GetBuildPosition(), Quaternion.identity);
+
+            // (GameObject) 캐스트해서 타워 생성
+            _tower = (GameObject)Instantiate(blueprint.prefab,
+                    GetBuildPosition(), Quaternion.identity);
             tower = _tower;
+
+            TowerController towerComponent = tower.GetComponent<TowerController>(); // 생성된 타워 스탯 설정
+            if (towerComponent != null)
+            {
+                towerComponent.bulletRate = 3f;
+                towerComponent.bulletSpeed = 2; 
+                towerComponent.bulletDamage = 8;
+                towerComponent.isMagictower = true;
+            }
+           
+        }
+
+        
 
             towerBlueprint = blueprint;
 
+
             Debug.Log("구매 완료");
+
+        Audio audio = FindObjectOfType<Audio>();
+        audio.PaySound();
     }
 
     public void UpgradeTower()
@@ -107,14 +147,44 @@ public class Node : MonoBehaviour
 
         GameManager.instance.UpgradeTower();
 
-        //Get rid of the old turret
+        // 이전 타워 제거
         Destroy(tower);
 
-        //Build a new one
+        // 업그레이드 타워 생성
         GameObject _tower = (GameObject)Instantiate(towerBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
         tower = _tower;
 
+        if (BuildManager.instance.isTower)  // 일반타워 업그레이드 스탯
+        {
+            TowerController towerComponent = tower.GetComponent<TowerController>(); // 생성된 타워 스탯 설정
+            if (towerComponent != null)
+            {
+                towerComponent.bulletRate = 1.5f;
+                towerComponent.bulletSpeed = 8;
+                towerComponent.bulletDamage = 4;
+                towerComponent.isUpgraded = true;
+
+            }
+           
+        }
+        else if (!BuildManager.instance.isTower)    // 마법타워 업그레이드 스탯
+        {
+            TowerController towerComponent = tower.GetComponent<TowerController>(); // 생성된 타워 스탯 설정
+            if (towerComponent != null)
+            {
+                towerComponent.bulletRate = 1.5f;
+                towerComponent.bulletSpeed = 4;
+                towerComponent.bulletDamage = 12;
+                towerComponent.isUpgraded = true;
+
+            }
+           
+        }
+
         isUpgraded = true;
+
+        Audio audio = FindObjectOfType<Audio>();
+        audio.PaySound();
 
         Debug.Log("타워 업그레이드");
     }
@@ -124,6 +194,9 @@ public class Node : MonoBehaviour
 
         Destroy(tower);
         towerBlueprint = null;
+
+        Audio audio = FindObjectOfType<Audio>();
+        audio.SellSound();
     }
 
 
@@ -135,9 +208,9 @@ public class Node : MonoBehaviour
         if (!buildManager.CanBuild)
             return;
 
-        if (BuildManager.instance.isTower && tower == null)
+        if (BuildManager.instance.isTower)
         {
-            if (GameInfo.money >= GameInfo.towerCost)
+            if (GameInfo.money >= GameInfo.towerCost && tower == null)
             {
                 buildOn.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
             }
@@ -145,9 +218,9 @@ public class Node : MonoBehaviour
                 buildOff.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
         }
 
-        if (!BuildManager.instance.isTower && tower == null)
+        if (!BuildManager.instance.isTower)
         {
-            if (GameInfo.money >= GameInfo.magicTowerCost)
+            if (GameInfo.money >= GameInfo.magicTowerCost && tower == null)
             {
                 buildMagicOn.SetActive(true);    // 마우스가 노드 위에 있을 때 하이라이트 
             }

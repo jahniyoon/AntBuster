@@ -196,6 +196,9 @@ public class AntController : MonoBehaviour
             {
                 getCake = true;
                 GetCake();
+
+                Audio audio = FindObjectOfType<Audio>();
+                audio.LaughSound();
             }
         }
         if (other.tag.Equals("Spawner") && getCake)
@@ -204,6 +207,9 @@ public class AntController : MonoBehaviour
             spawner.antSpawnCount -= 1;
             GameManager.instance.LostCake();
             Destroy(gameObject);
+
+            Audio audio = FindObjectOfType<Audio>();
+            audio.LaughSound();
 
             if (GameInfo.lostCake <= 0)
             {
@@ -214,6 +220,9 @@ public class AntController : MonoBehaviour
         {
             //Debug.Log("°³¹Ì Hit");
             animator.SetTrigger("Hit");
+
+            Audio audio = FindObjectOfType<Audio>();
+            audio.HitSound();
         }
 
     }
@@ -233,6 +242,8 @@ public class AntController : MonoBehaviour
         {
             GameManager.instance.LevelUp();
         }
+        Audio audio = FindObjectOfType<Audio>();
+        audio.DieSound();
 
         Destroy(gameObject, 1.5f);
 

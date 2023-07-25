@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         GameInfo.level = 1;
         GameInfo.score = 0;
         GameInfo.exp = 1;
-        GameInfo.money = 300;
+        GameInfo.money = 1000;
         GameInfo.lostCake = 8;
         GameInfo.towerCost = 30;
         GameInfo.magicTowerCost = 300;
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         Initialization();   // 초기화
 
-        moneyText.text = string.Format("MONEY : {0}", GameInfo.money);
+        moneyText.text = string.Format("GOLD : {0}", GameInfo.money);
         levelText.text = string.Format("LEVEL : {0}", GameInfo.level);
         scoreText.text = string.Format("SCORE : {0}", GameInfo.score);
 
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         if (!isGameOver)
         {
             GameInfo.money += getMoney;
-            moneyText.text = string.Format("MONEY : {0}", GameInfo.money);
+            moneyText.text = string.Format("GOLD : {0}", GameInfo.money);
         }
     }   // } AddScore
 
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
         {
             GameInfo.money -= cost;
             GameInfo.towerCost = GameInfo.towerCost + (GameInfo.towerCost / 2);
-            moneyText.text = string.Format("MONEY : {0}", GameInfo.money);
+            moneyText.text = string.Format("GOLD : {0}", GameInfo.money);
 
             costText.text = string.Format("$ {0}", GameInfo.towerCost);
         }
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
         {
             GameInfo.money -= cost;
             GameInfo.magicTowerCost = GameInfo.magicTowerCost + (GameInfo.magicTowerCost / 2);
-            moneyText.text = string.Format("MONEY : {0}", GameInfo.money);
+            moneyText.text = string.Format("GOLD : {0}", GameInfo.money);
 
             magicCostText.text = string.Format("$ {0}", GameInfo.magicTowerCost);
         }
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
     public void UpgradeTower()
     {
         GameInfo.money -= GameInfo.towerUpgradeCost;
-        moneyText.text = string.Format("MONEY : {0}", GameInfo.money);
+        moneyText.text = string.Format("GOLD : {0}", GameInfo.money);
     }
 
     public void OnGameOver()
@@ -143,13 +143,16 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         gameoverUI.SetActive(true);
 
+        Audio audio = FindObjectOfType<Audio>();
+        audio.RetrySound();
+
     }
 
     // 레벨 밸런스
     public void LevelUp()
     {
         GameInfo.level ++;  // 레벨업
-        GameInfo.exp = GameInfo.level * 2;  // 필요 경험치
+        GameInfo.exp = GameInfo.exp + GameInfo.level * 2;  // 필요 경험치
         levelText.text = string.Format("LEVEL : {0}", GameInfo.level);
 
         GameInfo.antMaxHealth = 4 + Mathf.Floor(GameInfo.level * 0.5f);
